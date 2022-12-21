@@ -15,20 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-
 from rest_framework.urlpatterns import format_suffix_patterns
-
 from snippets import views
 from django.conf.urls import include
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^snippets/$', views.snippet_list),
-    re_path(r'^snippets/(?P<pk>[0-9]+)/$', views.snippet_detail),
+    re_path(r'^snippets/$', views.SnippetList.as_view()),
+    re_path(r'^snippets/(?P<pk>[0-9]+)/$', views.SnippetDetail.as_view()),
     # re_path(r'^', include('snippets.urls')),
-    path('snippets/', views.snippet_list),
-    path('snippets/<int:pk>', views.snippet_detail),
+    path('snippets/', views.SnippetList.as_view()),
+    path('snippets/<int:pk>', views.SnippetDetail.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
